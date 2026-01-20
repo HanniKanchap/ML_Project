@@ -8,6 +8,7 @@ Requires-Dist: numpy
 Requires-Dist: matplotlib
 Requires-Dist: seaborn
 Requires-Dist: scikit-learn
+Requires-Dist: ipykernel
 Dynamic: author
 Dynamic: author-email
 Dynamic: requires-dist
