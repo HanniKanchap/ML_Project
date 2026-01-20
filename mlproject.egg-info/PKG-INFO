@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: mlproject
+Version: 0.0.1
+Author: Hanni
+Author-email: hannikanchap11@gmail.com
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: scikit-learn
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
