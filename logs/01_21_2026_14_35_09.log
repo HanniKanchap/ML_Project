@@ -1,0 +1,3 @@
+[2026-01-21 14:35:21,677] 63 root - INFO - Read operation on train and test data completed
+[2026-01-21 14:35:21,677] 38 root - INFO - Numerical column standard Scaling Completed
+[2026-01-21 14:35:21,677] 47 root - INFO - Categorical column Encoding Completed

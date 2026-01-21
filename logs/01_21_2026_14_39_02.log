@@ -1,0 +1,5 @@
+[2026-01-21 14:39:03,821] 63 root - INFO - Read operation on train and test data completed
+[2026-01-21 14:39:03,821] 38 root - INFO - Numerical column standard Scaling Completed
+[2026-01-21 14:39:03,821] 47 root - INFO - Categorical column Encoding Completed
+[2026-01-21 14:39:03,821] 73 root - INFO - Applying preprocessing on test and train data
+[2026-01-21 14:39:03,840] 84 root - INFO - Saving preprocessing object
