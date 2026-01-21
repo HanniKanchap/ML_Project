@@ -14,6 +14,7 @@ from sklearn.impute import SimpleImputer
 def save_object(file_path, obj):
     with open(file_path, 'wb') as f:
         pickle.dump(obj, f)
+        
 @dataclass
 class DataTransformationConfig:
     preprocessor_ob_file_path = os.path.join('artifacts','preprocessor.pkl')
@@ -38,7 +39,6 @@ class DataTransformation:
             logging.info("Numerical column standard Scaling Completed")
             cat_pipeline = Pipeline(
                 steps = [
-                    ('imputer',SimpleImputer(strategy='most_frequent')),
                     ('Encoding',OneHotEncoder(drop='first')),
                     ('Scaler',StandardScaler(with_mean=False))
                 ]
