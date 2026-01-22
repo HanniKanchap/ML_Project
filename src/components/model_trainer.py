@@ -24,10 +24,10 @@ class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
     
-    def initiate_model_training(self,train_arr,test_arr):
+    def initiate_model_training(self,X_tr,y_tr,X_te,y_te):
         try:
             logging.info("Split training and Test input data")
-            X_train,y_train,X_test,y_test = (train_arr[:,:-1],train_arr[:,-1],test_arr[:,:-1],test_arr[:,-1])
+            X_train,y_train,X_test,y_test = X_tr,y_tr,X_te,y_te
             
             models = {
                 "LinearRegression": LinearRegression(),
@@ -102,15 +102,14 @@ class ModelTrainer:
             model_report = evaluate_model(X_train,X_test,y_train,y_test,models,params)
             logging.info("Got model performance report")
 
-            sorted_model_report = list(sorted(model_report.items(),key = lambda x:x[1],reverse = True))
+            sorted_model_report = list(sorted(model_report.items(),key = lambda x:x[1][0],reverse = True))
             print(sorted_model_report)
-            best_model = models[sorted_model_report[0][0]]
+            best_model = sorted_model_report[0][1][1]
             
-            if sorted_model_report[0][1] < 0.6:
+            if sorted_model_report[0][1][0] < 0.6:
                 raise CustomException("No best model found",sys)
             
             logging.info("Best model Found")
-
             save_object(file_path=self.model_trainer_config.trained_model_file_path,obj = best_model)
 
 
@@ -120,6 +119,6 @@ class ModelTrainer:
 
 if __name__ == '__main__':
     dt = DataTransformation()
-    train_arr,test_arr,_ =dt.initiate_data_transformation('artifacts/train.csv','artifacts/test.csv')
+    X_train,y_train,X_test,y_test,_ =dt.initiate_data_transformation('artifacts/train.csv','artifacts/test.csv')
     obj = ModelTrainer()
-    obj.initiate_model_training(train_arr,test_arr)
+    obj.initiate_model_training(X_train,y_train,X_test,y_test)

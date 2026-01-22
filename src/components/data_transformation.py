@@ -5,7 +5,7 @@ from src.logger import logging
 from src.exception import CustomException
 import pandas as pd
 import numpy as np
-import pickle
+import joblib
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -13,7 +13,7 @@ from sklearn.impute import SimpleImputer
 
 def save_object(file_path, obj):
     with open(file_path, 'wb') as f:
-        pickle.dump(obj, f)
+        joblib.dump(obj, f)
         
 @dataclass
 class DataTransformationConfig:
@@ -75,17 +75,11 @@ class DataTransformation:
             X_train_scaled = preprocessor_obj.fit_transform(X_train)
             X_test_scaled = preprocessor_obj.transform(X_test)
 
-            train_arr = np.c_[
-                X_train_scaled,np.array(y_train)
-            ]
-            test_arr = np.c_[
-                X_test_scaled,np.array(y_test)
-            ]
             logging.info('Saving preprocessing object')
             save_object(file_path = self.data_transformation_config.preprocessor_ob_file_path,obj = preprocessor_obj)
             return (
-                train_arr,
-                test_arr,
+                X_train_scaled,y_train,
+                X_test_scaled,y_test,
                 self.data_transformation_config.preprocessor_ob_file_path
             )
 

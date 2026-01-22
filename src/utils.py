@@ -1,5 +1,18 @@
 from sklearn.metrics import mean_absolute_error,mean_squared_error,r2_score
 from sklearn.model_selection import RandomizedSearchCV
+import sys
+import joblib
+from src.exception import CustomException
+
+def load_object(path):
+    try:
+        with open(path, 'rb') as f:
+            obj = joblib.load(f)
+        return obj
+    except Exception as e:
+        
+        raise CustomException(e, sys)
+
 
 def evaluate_model(X_train,X_test,y_train,y_test,models,params):
     performance_matrix = {}
@@ -17,8 +30,8 @@ def evaluate_model(X_train,X_test,y_train,y_test,models,params):
 
         print(' '*10,"\nTesting Data Performance\n")
         val = eval_model(y_test,y_pred_test)
-
-        performance_matrix[name] = val
+        
+        performance_matrix[name] = (val,model.best_estimator_)
     
     return performance_matrix
 
